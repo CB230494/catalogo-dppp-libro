@@ -1,65 +1,39 @@
 const totalPages = 21;
-let currentPage = 1;
-let locked = false;
 
-const pageBox = document.getElementById("pageBox");
-const pageImg = document.getElementById("pageImg");
+const pageFlip = new St.PageFlip(document.getElementById("book"), {
+  width: 760,
+  height: 760,
+  size: "stretch",
+  minWidth: 300,
+  maxWidth: 760,
+  minHeight: 300,
+  maxHeight: 760,
+  showCover: false,
+  usePortrait: true,
+  drawShadow: true,
+  maxShadowOpacity: 0.55,
+  flippingTime: 900,
+  mobileScrollSupport: false,
+  swipeDistance: 30
+});
+
+pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+
 const counter = document.getElementById("counter");
-
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const firstBtn = document.getElementById("firstBtn");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-function path(num){
-  return `pages/Pagina-${String(num).padStart(2, "0")}.jpeg`;
+function updateCounter(){
+  const current = pageFlip.getCurrentPageIndex() + 1;
+  counter.textContent = `Página ${current} / ${totalPages}`;
 }
 
-function update(){
-  pageImg.src = path(currentPage);
-  counter.textContent = `Página ${currentPage} / ${totalPages}`;
-  prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
-}
+nextBtn.onclick = () => pageFlip.flipNext();
+prevBtn.onclick = () => pageFlip.flipPrev();
 
-function animate(direction, nextPage){
-  if(locked) return;
-  locked = true;
+document.getElementById("firstBtn").onclick = () => pageFlip.turnToPage(0);
 
-  pageBox.classList.remove("flip-next", "flip-prev");
-  void pageBox.offsetWidth;
-
-  pageBox.classList.add(direction);
-
-  setTimeout(() => {
-    currentPage = nextPage;
-    update();
-  }, 320);
-
-  setTimeout(() => {
-    pageBox.classList.remove(direction);
-    locked = false;
-  }, 680);
-}
-
-nextBtn.onclick = () => {
-  if(currentPage < totalPages){
-    animate("flip-next", currentPage + 1);
-  }
-};
-
-prevBtn.onclick = () => {
-  if(currentPage > 1){
-    animate("flip-prev", currentPage - 1);
-  }
-};
-
-firstBtn.onclick = () => {
-  currentPage = 1;
-  update();
-};
-
-fullscreenBtn.onclick = () => {
+document.getElementById("fullscreenBtn").onclick = () => {
   if(!document.fullscreenElement){
     document.documentElement.requestFullscreen();
   }else{
@@ -67,9 +41,11 @@ fullscreenBtn.onclick = () => {
   }
 };
 
+pageFlip.on("flip", updateCounter);
+
 document.addEventListener("keydown", e => {
-  if(e.key === "ArrowRight") nextBtn.click();
-  if(e.key === "ArrowLeft") prevBtn.click();
+  if(e.key === "ArrowRight") pageFlip.flipNext();
+  if(e.key === "ArrowLeft") pageFlip.flipPrev();
 });
 
-update();
+updateCounter();
