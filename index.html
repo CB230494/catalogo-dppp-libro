@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo DPPP | Libro Digital</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo DPPP</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <header class="header">
-    <img src="pages/Logo.png" class="logo" alt="Logo MSP">
-    <div class="subtitle">PORTAFOLIO DE SERVICIOS DPPP</div>
+  <header>
+    <img src="pages/Logo.png" class="logo" alt="Logo">
+    <h1>PORTAFOLIO DE SERVICIOS DPPP</h1>
   </header>
 
   <main class="viewer">
-    <button class="nav left" id="prevBtn">‹</button>
+    <button id="prevBtn" class="nav">‹</button>
 
-    <section class="book-single" id="book">
-      <div class="page-shadow"></div>
+    <div class="page-box" id="pageBox">
+      <img id="pageImg" src="pages/Pagina-01.jpeg" alt="Página">
+    </div>
 
-      <div class="page current-page">
-        <img id="pageImg" src="pages/Pagina-01.jpeg" alt="Página actual">
-      </div>
-
-      <div class="page flip-page" id="flipPage">
-        <img id="flipImg" src="pages/Pagina-01.jpeg" alt="Página animada">
-      </div>
-    </section>
-
-    <button class="nav right" id="nextBtn">›</button>
+    <button id="nextBtn" class="nav">›</button>
   </main>
 
   <section class="controls">
