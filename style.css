@@ -1,126 +1,141 @@
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-  min-height:100vh;
-  background:radial-gradient(circle,#252525,#070707);
-  font-family:Arial, Helvetica, sans-serif;
-  color:white;
-  overflow:hidden;
+    background:
+    radial-gradient(circle at center,#262626 0%,#111111 45%,#030303 100%);
+    font-family:Arial, Helvetica, sans-serif;
+    color:#fff;
+    overflow:hidden;
 }
 
-header{
-  text-align:center;
-  padding:10px 10px 6px;
+.header{
+    text-align:center;
+    padding:10px;
 }
 
 .logo{
-  width:min(500px,85vw);
-  max-height:95px;
-  object-fit:contain;
+    width:min(550px,90vw);
+    max-height:110px;
+    object-fit:contain;
 }
 
-h1{
-  color:#c9a35b;
-  font-size:18px;
-  letter-spacing:5px;
-  font-weight:400;
-  margin-top:5px;
+.header h1{
+    margin-top:8px;
+    font-size:20px;
+    font-weight:400;
+    letter-spacing:6px;
+    color:#c9a35b;
 }
 
-.viewer{
-  height:calc(100vh - 185px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:25px;
+.main-viewer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:25px;
+    height:calc(100vh - 220px);
 }
 
-#book{
-  width:min(78vh,760px);
-  height:min(78vh,760px);
+.book-area{
+    position:relative;
 }
 
-.page{
-  background:white;
-  overflow:hidden;
+#flipbook{
+    width:1200px;
+    height:760px;
 }
 
-.page img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+#flipbook .page{
+    background:white;
 }
 
-.nav{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  border:1px solid #c9a35b;
-  background:rgba(0,0,0,.65);
-  color:#c9a35b;
-  font-size:52px;
-  line-height:45px;
-  cursor:pointer;
-  z-index:20;
+#flipbook .page img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    background:white;
 }
 
-.nav:hover{
-  background:#c9a35b;
-  color:#000;
+.nav-btn{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    border:1px solid #c9a35b;
+    background:rgba(0,0,0,.6);
+    color:#c9a35b;
+    font-size:55px;
+    line-height:55px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.nav-btn:hover{
+    background:#c9a35b;
+    color:#000;
 }
 
 .controls{
-  height:70px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:15px;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
 }
 
 .controls button{
-  background:#c9a35b;
-  color:#000;
-  border:none;
-  padding:12px 22px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
+    background:#c9a35b;
+    color:#000;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 #counter{
-  font-size:18px;
-  font-weight:bold;
+    font-size:20px;
+    font-weight:bold;
 }
 
-@media(max-width:800px){
-  body{
-    overflow:auto;
-  }
+@media(max-width:1200px){
 
-  .viewer{
-    height:auto;
-    padding:10px 4px;
-    gap:6px;
-  }
+    #flipbook{
+        width:900px;
+        height:570px;
+    }
 
-  #book{
-    width:82vw;
-    height:82vw;
-  }
+}
 
-  .nav{
-    width:42px;
-    height:42px;
-    font-size:38px;
-  }
+@media(max-width:900px){
 
-  h1{
-    font-size:13px;
-    letter-spacing:3px;
-  }
+    body{
+        overflow:auto;
+    }
+
+    .main-viewer{
+        flex-direction:column;
+        height:auto;
+    }
+
+    #flipbook{
+        width:95vw;
+        height:65vw;
+    }
+
+    .nav-btn{
+        width:45px;
+        height:45px;
+        font-size:35px;
+        line-height:35px;
+    }
+
+    .header h1{
+        font-size:14px;
+        letter-spacing:3px;
+    }
+
 }
