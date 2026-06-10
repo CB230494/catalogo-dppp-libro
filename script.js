@@ -1,9 +1,10 @@
 const totalPages = 21;
 let currentPage = 1;
+let isFlipping = false;
 
-const book = document.getElementById("book");
-const leftImg = document.getElementById("leftImg");
-const rightImg = document.getElementById("rightImg");
+const pageImg = document.getElementById("pageImg");
+const flipPage = document.getElementById("flipPage");
+const flipImg = document.getElementById("flipImg");
 const counter = document.getElementById("counter");
 
 const prevBtn = document.getElementById("prevBtn");
@@ -15,54 +16,58 @@ function pagePath(num){
   return `pages/Pagina-${String(num).padStart(2,"0")}.jpeg`;
 }
 
-function updateBook(){
-  let left = currentPage;
-  let right = currentPage + 1;
-
-  leftImg.src = pagePath(left);
-
-  if(right <= totalPages){
-    rightImg.src = pagePath(right);
-    rightImg.style.visibility = "visible";
-  }else{
-    rightImg.style.visibility = "hidden";
-  }
-
-  counter.textContent = right <= totalPages
-    ? `Páginas ${left} - ${right} / ${totalPages}`
-    : `Página ${left} / ${totalPages}`;
-
+function updateCounter(){
+  counter.textContent = `Página ${currentPage} / ${totalPages}`;
   prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage >= totalPages;
+  nextBtn.disabled = currentPage === totalPages;
 }
 
-function animate(direction){
-  book.classList.remove("turn-next","turn-prev");
-  void book.offsetWidth;
-  book.classList.add(direction);
+function goNext(){
+  if(isFlipping || currentPage >= totalPages) return;
+
+  isFlipping = true;
+  flipImg.src = pagePath(currentPage);
+  flipPage.className = "page flip-page next";
+
+  setTimeout(() => {
+    currentPage++;
+    pageImg.src = pagePath(currentPage);
+    updateCounter();
+  }, 480);
+
+  setTimeout(() => {
+    flipPage.className = "page flip-page";
+    isFlipping = false;
+  }, 1000);
 }
 
-nextBtn.addEventListener("click", () => {
-  if(currentPage < totalPages){
-    animate("turn-next");
-    currentPage += 2;
-    if(currentPage > totalPages) currentPage = totalPages;
-    setTimeout(updateBook, 260);
-  }
-});
+function goPrev(){
+  if(isFlipping || currentPage <= 1) return;
 
-prevBtn.addEventListener("click", () => {
-  if(currentPage > 1){
-    animate("turn-prev");
-    currentPage -= 2;
-    if(currentPage < 1) currentPage = 1;
-    setTimeout(updateBook, 260);
-  }
-});
+  isFlipping = true;
+  currentPage--;
+  flipImg.src = pagePath(currentPage);
+  pageImg.src = pagePath(currentPage);
+  flipPage.className = "page flip-page prev";
+
+  setTimeout(() => {
+    updateCounter();
+  }, 480);
+
+  setTimeout(() => {
+    flipPage.className = "page flip-page";
+    isFlipping = false;
+  }, 1000);
+}
+
+nextBtn.addEventListener("click", goNext);
+prevBtn.addEventListener("click", goPrev);
 
 firstBtn.addEventListener("click", () => {
+  if(isFlipping) return;
   currentPage = 1;
-  updateBook();
+  pageImg.src = pagePath(currentPage);
+  updateCounter();
 });
 
 fullscreenBtn.addEventListener("click", () => {
@@ -74,8 +79,9 @@ fullscreenBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if(e.key === "ArrowRight") nextBtn.click();
-  if(e.key === "ArrowLeft") prevBtn.click();
+  if(e.key === "ArrowRight") goNext();
+  if(e.key === "ArrowLeft") goPrev();
 });
 
-updateBook();
+pageImg.src = pagePath(currentPage);
+updateCounter();
