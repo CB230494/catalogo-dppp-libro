@@ -16,15 +16,15 @@
   <main class="viewer">
     <button class="nav left" id="prevBtn">‹</button>
 
-    <section class="book" id="book">
-      <div class="page left-page">
-        <img id="leftImg" src="pages/Pagina-01.jpeg" alt="Página izquierda">
+    <section class="book-single" id="book">
+      <div class="page-shadow"></div>
+
+      <div class="page current-page">
+        <img id="pageImg" src="pages/Pagina-01.jpeg" alt="Página actual">
       </div>
 
-      <div class="spine"></div>
-
-      <div class="page right-page">
-        <img id="rightImg" src="pages/Pagina-02.jpeg" alt="Página derecha">
+      <div class="page flip-page" id="flipPage">
+        <img id="flipImg" src="pages/Pagina-01.jpeg" alt="Página animada">
       </div>
     </section>
 
@@ -34,7 +34,7 @@
   <section class="controls">
     <button id="firstBtn">Inicio</button>
     <button id="fullscreenBtn">Pantalla completa</button>
-    <span id="counter">Páginas 1 - 2 / 21</span>
+    <span id="counter">Página 1 / 21</span>
   </section>
 
   <script src="script.js"></script>
