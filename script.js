@@ -1,10 +1,9 @@
 const totalPages = 21;
 let currentPage = 1;
-let isFlipping = false;
+let locked = false;
 
+const pageBox = document.getElementById("pageBox");
 const pageImg = document.getElementById("pageImg");
-const flipPage = document.getElementById("flipPage");
-const flipImg = document.getElementById("flipImg");
 const counter = document.getElementById("counter");
 
 const prevBtn = document.getElementById("prevBtn");
@@ -12,76 +11,65 @@ const nextBtn = document.getElementById("nextBtn");
 const firstBtn = document.getElementById("firstBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-function pagePath(num){
-  return `pages/Pagina-${String(num).padStart(2,"0")}.jpeg`;
+function path(num){
+  return `pages/Pagina-${String(num).padStart(2, "0")}.jpeg`;
 }
 
-function updateCounter(){
+function update(){
+  pageImg.src = path(currentPage);
   counter.textContent = `Página ${currentPage} / ${totalPages}`;
   prevBtn.disabled = currentPage === 1;
   nextBtn.disabled = currentPage === totalPages;
 }
 
-function goNext(){
-  if(isFlipping || currentPage >= totalPages) return;
+function animate(direction, nextPage){
+  if(locked) return;
+  locked = true;
 
-  isFlipping = true;
-  flipImg.src = pagePath(currentPage);
-  flipPage.className = "page flip-page next";
+  pageBox.classList.remove("flip-next", "flip-prev");
+  void pageBox.offsetWidth;
 
-  setTimeout(() => {
-    currentPage++;
-    pageImg.src = pagePath(currentPage);
-    updateCounter();
-  }, 480);
+  pageBox.classList.add(direction);
 
   setTimeout(() => {
-    flipPage.className = "page flip-page";
-    isFlipping = false;
-  }, 1000);
+    currentPage = nextPage;
+    update();
+  }, 320);
+
+  setTimeout(() => {
+    pageBox.classList.remove(direction);
+    locked = false;
+  }, 680);
 }
 
-function goPrev(){
-  if(isFlipping || currentPage <= 1) return;
+nextBtn.onclick = () => {
+  if(currentPage < totalPages){
+    animate("flip-next", currentPage + 1);
+  }
+};
 
-  isFlipping = true;
-  currentPage--;
-  flipImg.src = pagePath(currentPage);
-  pageImg.src = pagePath(currentPage);
-  flipPage.className = "page flip-page prev";
+prevBtn.onclick = () => {
+  if(currentPage > 1){
+    animate("flip-prev", currentPage - 1);
+  }
+};
 
-  setTimeout(() => {
-    updateCounter();
-  }, 480);
-
-  setTimeout(() => {
-    flipPage.className = "page flip-page";
-    isFlipping = false;
-  }, 1000);
-}
-
-nextBtn.addEventListener("click", goNext);
-prevBtn.addEventListener("click", goPrev);
-
-firstBtn.addEventListener("click", () => {
-  if(isFlipping) return;
+firstBtn.onclick = () => {
   currentPage = 1;
-  pageImg.src = pagePath(currentPage);
-  updateCounter();
-});
+  update();
+};
 
-fullscreenBtn.addEventListener("click", () => {
+fullscreenBtn.onclick = () => {
   if(!document.fullscreenElement){
     document.documentElement.requestFullscreen();
   }else{
     document.exitFullscreen();
   }
+};
+
+document.addEventListener("keydown", e => {
+  if(e.key === "ArrowRight") nextBtn.click();
+  if(e.key === "ArrowLeft") prevBtn.click();
 });
 
-document.addEventListener("keydown", (e) => {
-  if(e.key === "ArrowRight") goNext();
-  if(e.key === "ArrowLeft") goPrev();
-});
-
-pageImg.src = pagePath(currentPage);
-updateCounter();
+update();
