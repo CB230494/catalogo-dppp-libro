@@ -3,13 +3,18 @@ $(document).ready(function () {
   const totalPages = 21;
 
   function calcularTamanoLibro() {
-    const altoDisponible = window.innerHeight - 200;
-    const anchoDisponible = window.innerWidth - 160;
+    const altoDisponible = window.innerHeight - 190;
+    const anchoDisponible = window.innerWidth - 180;
 
+    /*
+      Tus páginas son cuadradas.
+      Para no cortar información usamos proporción 1:1.
+      Esto elimina el blanco causado por marcos rectangulares.
+    */
     let pageSize = Math.min(altoDisponible, anchoDisponible);
 
-    if (pageSize > 760) pageSize = 760;
-    if (pageSize < 320) pageSize = 320;
+    if (pageSize > 820) pageSize = 820;
+    if (pageSize < 330) pageSize = 330;
 
     return {
       width: pageSize,
