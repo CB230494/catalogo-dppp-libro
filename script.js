@@ -2,17 +2,31 @@ $(document).ready(function () {
 
   const totalPages = 21;
 
-  const bookWidth = $("#flipbook").width();
-  const bookHeight = $("#flipbook").height();
+  function calcularTamanoLibro() {
+    const altoDisponible = window.innerHeight - 210;
+    const anchoDisponible = window.innerWidth - 160;
+
+    let pageSize = Math.min(altoDisponible, anchoDisponible / 2);
+
+    if (pageSize > 720) pageSize = 720;
+    if (pageSize < 320) pageSize = 320;
+
+    return {
+      width: pageSize * 2,
+      height: pageSize
+    };
+  }
+
+  const size = calcularTamanoLibro();
 
   $("#flipbook").turn({
-    width: bookWidth,
-    height: bookHeight,
+    width: size.width,
+    height: size.height,
     autoCenter: true,
     display: "double",
     acceleration: true,
     gradients: true,
-    elevation: 80,
+    elevation: 90,
     duration: 1200,
     pages: totalPages
   });
@@ -47,13 +61,13 @@ $(document).ready(function () {
   });
 
   $(document).keydown(function (e) {
-    if (e.key === "ArrowRight") {
-      $("#flipbook").turn("next");
-    }
+    if (e.key === "ArrowRight") $("#flipbook").turn("next");
+    if (e.key === "ArrowLeft") $("#flipbook").turn("previous");
+  });
 
-    if (e.key === "ArrowLeft") {
-      $("#flipbook").turn("previous");
-    }
+  $(window).on("resize", function () {
+    const newSize = calcularTamanoLibro();
+    $("#flipbook").turn("size", newSize.width, newSize.height);
   });
 
   updateCounter();
