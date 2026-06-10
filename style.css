@@ -14,20 +14,20 @@ body{
 
 .header{
     text-align:center;
-    padding:10px;
+    padding:8px 10px 4px;
 }
 
 .logo{
-    width:min(550px,90vw);
-    max-height:110px;
+    width:min(520px,88vw);
+    max-height:95px;
     object-fit:contain;
 }
 
 .header h1{
-    margin-top:8px;
-    font-size:20px;
+    margin-top:5px;
+    font-size:18px;
     font-weight:400;
-    letter-spacing:6px;
+    letter-spacing:5px;
     color:#c9a35b;
 }
 
@@ -35,42 +35,49 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:25px;
-    height:calc(100vh - 220px);
+    gap:18px;
+    height:calc(100vh - 175px);
+    width:100%;
 }
 
 .book-area{
     position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 #flipbook{
-    width:1200px;
-    height:760px;
+    width:min(92vw,1500px);
+    height:min(78vh,900px);
+    margin:auto;
 }
 
 #flipbook .page{
     background:white;
+    overflow:hidden;
 }
 
 #flipbook .page img{
     width:100%;
     height:100%;
     display:block;
-    object-fit:contain;
+    object-fit:cover;
     background:white;
 }
 
 .nav-btn{
-    width:65px;
-    height:65px;
+    width:58px;
+    height:58px;
     border-radius:50%;
     border:1px solid #c9a35b;
     background:rgba(0,0,0,.6);
     color:#c9a35b;
-    font-size:55px;
-    line-height:55px;
+    font-size:50px;
+    line-height:48px;
     cursor:pointer;
     transition:.25s;
+    z-index:20;
 }
 
 .nav-btn:hover{
@@ -79,7 +86,7 @@ body{
 }
 
 .controls{
-    height:70px;
+    height:65px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -90,28 +97,25 @@ body{
     background:#c9a35b;
     color:#000;
     border:none;
-    padding:12px 20px;
+    padding:11px 20px;
     border-radius:8px;
     cursor:pointer;
     font-weight:bold;
 }
 
 #counter{
-    font-size:20px;
+    font-size:18px;
     font-weight:bold;
 }
 
 @media(max-width:1200px){
-
     #flipbook{
-        width:900px;
-        height:570px;
+        width:90vw;
+        height:72vh;
     }
-
 }
 
 @media(max-width:900px){
-
     body{
         overflow:auto;
     }
@@ -119,17 +123,19 @@ body{
     .main-viewer{
         flex-direction:column;
         height:auto;
+        gap:10px;
+        padding:10px 0;
     }
 
     #flipbook{
         width:95vw;
-        height:65vw;
+        height:67vw;
     }
 
     .nav-btn{
         width:45px;
         height:45px;
-        font-size:35px;
+        font-size:36px;
         line-height:35px;
     }
 
@@ -138,4 +144,7 @@ body{
         letter-spacing:3px;
     }
 
+    .logo{
+        max-height:80px;
+    }
 }
