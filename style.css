@@ -14,30 +14,30 @@ body{
 
 .header{
   text-align:center;
-  height:118px;
-  padding:6px 10px 0;
+  height:105px;
+  padding:4px 10px 0;
 }
 
 .logo{
-  width:min(440px,82vw);
-  max-height:72px;
+  width:min(420px,80vw);
+  max-height:62px;
   object-fit:contain;
 }
 
 .header h1{
   margin-top:4px;
-  font-size:17px;
+  font-size:16px;
   font-weight:400;
   letter-spacing:5px;
   color:#c9a35b;
 }
 
 .main-viewer{
-  height:calc(100vh - 180px);
+  height:calc(100vh - 165px);
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:18px;
+  gap:14px;
   width:100%;
 }
 
@@ -49,10 +49,11 @@ body{
 
 #flipbook{
   margin:auto;
+  background:#030303;
 }
 
 #flipbook .page{
-  background:white;
+  background:#030303 !important;
   overflow:hidden;
 }
 
@@ -62,7 +63,7 @@ body{
   display:block;
   object-fit:contain;
   object-position:center center;
-  background:white;
+  background:#030303;
 }
 
 .nav-btn{
@@ -84,7 +85,7 @@ body{
 }
 
 .controls{
-  height:62px;
+  height:60px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -95,7 +96,7 @@ body{
   background:#c9a35b;
   color:#000;
   border:none;
-  padding:11px 20px;
+  padding:10px 20px;
   border-radius:8px;
   cursor:pointer;
   font-weight:bold;
