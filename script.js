@@ -3,16 +3,16 @@ $(document).ready(function () {
   const totalPages = 21;
 
   function calcularTamanoLibro() {
-    const altoDisponible = window.innerHeight - 210;
+    const altoDisponible = window.innerHeight - 200;
     const anchoDisponible = window.innerWidth - 160;
 
-    let pageSize = Math.min(altoDisponible, anchoDisponible / 2);
+    let pageSize = Math.min(altoDisponible, anchoDisponible);
 
-    if (pageSize > 720) pageSize = 720;
+    if (pageSize > 760) pageSize = 760;
     if (pageSize < 320) pageSize = 320;
 
     return {
-      width: pageSize * 2,
+      width: pageSize,
       height: pageSize
     };
   }
@@ -23,7 +23,7 @@ $(document).ready(function () {
     width: size.width,
     height: size.height,
     autoCenter: true,
-    display: "double",
+    display: "single",
     acceleration: true,
     gradients: true,
     elevation: 90,
